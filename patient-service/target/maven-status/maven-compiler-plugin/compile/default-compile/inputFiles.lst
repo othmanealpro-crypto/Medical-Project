@@ -1,0 +1,4 @@
+/Users/otane/Documents/medical-project-initializr/patient-service/src/main/java/com/medical/patient/PatientServiceApplication.java
+/Users/otane/Documents/medical-project-initializr/patient-service/src/main/java/com/medical/patient/feign/RendezVousClient.java
+/Users/otane/Documents/medical-project-initializr/patient-service/src/main/java/com/medical/patient/controllers/PatientController.java
+/Users/otane/Documents/medical-project-initializr/patient-service/src/main/java/com/medical/patient/repositories/PatientRepository.java

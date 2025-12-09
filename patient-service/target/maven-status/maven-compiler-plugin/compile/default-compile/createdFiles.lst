@@ -1,0 +1,4 @@
+com/medical/patient/feign/RendezVousClient.class
+com/medical/patient/PatientServiceApplication.class
+com/medical/patient/repositories/PatientRepository.class
+com/medical/patient/controllers/PatientController.class
