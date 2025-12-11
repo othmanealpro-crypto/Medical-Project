@@ -1,9 +1,7 @@
 package com.medical.patient.controllers;
 
-import com.medical.entities.RendezVous;
-import com.medical.patient.feign.RendezVousClient;
+import com.medical.entities.Patient;
 import com.medical.patient.repositories.PatientRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,17 +11,19 @@ import java.util.List;
 public class PatientController {
 
     private final PatientRepository patientRepo;
-    private final RendezVousClient rdvClient;
 
-    public PatientController(PatientRepository patientRepo, RendezVousClient rdvClient) {
+    // Constructeur explicite pour Spring
+    public PatientController(PatientRepository patientRepo) {
         this.patientRepo = patientRepo;
-        this.rdvClient = rdvClient;
     }
 
-    @GetMapping("/{id}/rdvs")
-    public List<RendezVous> getRendezVous(@PathVariable Long id) {
-        return rdvClient.getRendezVousByPatient(id);
+    @PostMapping
+    public Patient create(@RequestBody Patient patient) {
+        return patientRepo.save(patient);
+    }
+
+    @GetMapping
+    public List<Patient> getAll() {
+        return patientRepo.findAll();
     }
 }
-
-

@@ -1,0 +1,84 @@
+<!-- src/main/resources/templates/dashboard.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+<h1>Bienvenue sur le dashboard</h1>
+</body>
+</html><!-- src/main/resources/templates/dashboard.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin-bottom: 30px;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+<h1>Bienvenue sur le dashboard</h1>
+
+<h2>Liste des Patients</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>CIN</th>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Téléphone</th>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="patient : ${patients}">
+        <td th:text="${patient.id}"></td>
+        <td th:text="${patient.cin}"></td>
+        <td th:text="${patient.nom}"></td>
+        <td th:text="${patient.prenom}"></td>
+        <td th:text="${patient.telephone}"></td>
+        <td th:text="${patient.email}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Liste des Rendez-Vous</h2>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Patient</th>
+        <th>Médecin</th>
+        <th>Date</th>
+        <th>Symptômes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rdv : ${rendezVousList}">
+        <td th:text="${rdv.id}"></td>
+        <td th:text="${rdv.patient.nom + ' ' + rdv.patient.prenom}"></td>
+        <td th:text="${rdv.medecin.nom + ' ' + rdv.medecin.prenom}"></td>
+        <td th:text="${#dates.format(rdv.date, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${rdv.symptomes}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
+

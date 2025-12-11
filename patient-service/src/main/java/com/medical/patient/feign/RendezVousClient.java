@@ -10,7 +10,7 @@ import java.util.List;
 @FeignClient(name = "rdv-service")  // nom exact enregistré dans Eureka
 public interface RendezVousClient {
 
-    @GetMapping("/rdvs/patient/{id}")
+    @GetMapping("/rdv/patient/{id}")
     List<RendezVous> getRendezVousByPatient(@PathVariable("id") Long patientId);
 }
 

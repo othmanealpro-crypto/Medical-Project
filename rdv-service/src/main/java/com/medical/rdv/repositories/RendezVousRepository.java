@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface RendezVousRepository extends JpaRepository<RendezVous, Long> {
-    List<RendezVous> findByPatientId(Long patientId); // pour Feign depuis patient-service
+    List<RendezVous> findByPatientId(Long patientId);
+    List<RendezVous> findByMedecinId(Long medecinId);
 }
+

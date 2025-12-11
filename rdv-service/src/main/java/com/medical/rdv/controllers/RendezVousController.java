@@ -9,10 +9,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/rdv")
-@RequiredArgsConstructor
 public class RendezVousController {
 
     private final RendezVousRepository rdvRepo;
+
+    public RendezVousController(RendezVousRepository rdvRepo) {
+        this.rdvRepo = rdvRepo;
+    }
 
     @PostMapping
     public RendezVous create(@RequestBody RendezVous rdv) {
@@ -23,9 +26,12 @@ public class RendezVousController {
     public List<RendezVous> getAll() {
         return rdvRepo.findAll();
     }
+
     @GetMapping("/patient/{id}")
     public List<RendezVous> getRendezVousByPatient(@PathVariable Long id) {
         return rdvRepo.findByPatientId(id);
     }
+
+
 
 }
