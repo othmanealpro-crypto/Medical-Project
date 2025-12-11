@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 @EntityScan(basePackages = "com.medical.entities")
 public class RdvServiceApplication {
     public static void main(String[] args) throws InterruptedException {
-        SpringApplication app = new SpringApplication(PatientServiceApplication.class);
+        SpringApplication app = new SpringApplication(RdvServiceApplication.class);
         app.setWebApplicationType(WebApplicationType.REACTIVE); // ou WebApplicationType.REACTIVE
         app.run(args);
         new CountDownLatch(1).await();

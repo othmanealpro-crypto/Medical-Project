@@ -3,63 +3,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
-</head>
-<body>
-<h1>Bienvenue sur le dashboard</h1>
-</body>
-</html><!-- src/main/resources/templates/dashboard.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Dashboard</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #007BFF;
+        }
         table {
+            width: 100%;
+            border: 1px solid #007BFF;
             border-collapse: collapse;
-            width: 80%;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
         th, td {
-            border: 1px solid #333;
+            border: 1px solid #007BFF;
             padding: 8px;
+            text-align: center;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #007BFF;
+            color: white;
         }
-        h2 {
-            margin-top: 40px;
+        form {
+            display: flex;
+            flex-direction: column;
+            max-width: 400px;
+            margin-bottom: 30px;
+        }
+        form input, form select {
+            padding: 8px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #007BFF;
+        }
+        form button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-<h1>Bienvenue sur le dashboard</h1>
+<h1>Dashboard</h1>
 
-<h2>Liste des Patients</h2>
+<!-- Section Patients -->
+<h2>Patients</h2>
 <table>
-    <thead>
     <tr>
-        <th>ID</th>
         <th>CIN</th>
         <th>Nom</th>
         <th>Prénom</th>
-        <th>Téléphone</th>
         <th>Email</th>
+        <th>Téléphone</th>
+
     </tr>
-    </thead>
-    <tbody>
     <tr th:each="patient : ${patients}">
-        <td th:text="${patient.id}"></td>
         <td th:text="${patient.cin}"></td>
         <td th:text="${patient.nom}"></td>
         <td th:text="${patient.prenom}"></td>
-        <td th:text="${patient.telephone}"></td>
         <td th:text="${patient.email}"></td>
+        <td th:text="${patient.telephone}"></td>
     </tr>
-    </tbody>
 </table>
 
-<h2>Liste des Rendez-Vous</h2>
+<h3>Ajouter un patient</h3>
+<form th:action="@{/dashboard/patients}" method="post">
+    <input type="text" name="nom" placeholder="Nom" required/>
+    <input type="text" name="prenom" placeholder="Prénom" required/>
+    <input type="text" name="cin" placeholder="CIN" required/>
+    <input type="text" name="telephone" placeholder="Téléphone" required/>
+    <input type="email" name="email" placeholder="Email" required/>
+    <button type="submit">Ajouter</button>
+</form>
+
+<!-- Section Médecins -->
+<h2>Médecins</h2>
 <table>
-    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Nom</th>
+        <th>Spécialité</th>
+    </tr>
+    <tr th:each="medecin : ${medecins}">
+        <td th:text="${medecin.id}"></td>
+        <td th:text="${medecin.nom}"></td>
+        <td th:text="${medecin.profession}"></td>
+    </tr>
+</table>
+
+<h3>Ajouter un médecin</h3>
+<form th:action="@{/dashboard/medecins}" method="post">
+    <input type="text" name="nom" placeholder="Nom" required/>
+    <input type="text" name="specialite" placeholder="Spécialité" required/>
+    <button type="submit">Ajouter</button>
+</form>
+
+<!-- Section Rendez-vous -->
+<h2>Rendez-vous</h2>
+<table>
     <tr>
         <th>ID</th>
         <th>Patient</th>
@@ -67,18 +113,49 @@
         <th>Date</th>
         <th>Symptômes</th>
     </tr>
-    </thead>
-    <tbody>
-    <tr th:each="rdv : ${rendezVousList}">
+    <tr th:each="rdv : ${rdvs}">
         <td th:text="${rdv.id}"></td>
-        <td th:text="${rdv.patient.nom + ' ' + rdv.patient.prenom}"></td>
-        <td th:text="${rdv.medecin.nom + ' ' + rdv.medecin.prenom}"></td>
-        <td th:text="${#dates.format(rdv.date, 'yyyy-MM-dd HH:mm')}"></td>
+        <td th:text="${rdv.patient != null ? rdv.patient.nom + ' ' + rdv.patient.prenom : 'Patient inconnu'}"></td>
+        <td th:text="${rdv.medecin != null ? rdv.medecin.nom : 'Médecin inconnu'}"></td>
+        <td th:text="${rdv.dateRdv}"></td>
         <td th:text="${rdv.symptomes}"></td>
     </tr>
-    </tbody>
 </table>
 
+<h3>Ajouter un rendez-vous</h3>
+<form th:action="@{/dashboard/rdv}" method="post">
+    <label>Patient:</label>
+    <select name="patientId" required>
+        <option th:each="patient : ${patients}" th:value="${patient.id}"
+                th:text="${patient.nom + ' ' + patient.prenom}"></option>
+    </select>
+
+    <label>Médecin:</label>
+    <select name="medecinId" required>
+        <option th:each="medecin : ${medecins}" th:value="${medecin.id}" th:text="${medecin.nom}"></option>
+    </select>
+
+    <label>Date:</label>
+    <input type="date" name="dateRdv" required/>
+
+    <label>Heure:</label>
+    <select name="heureRdv" required>
+        <option value="09:00">09:00</option>
+        <option value="10:00">10:00</option>
+        <option value="11:00">11:00</option>
+        <option value="12:00">12:00</option>
+        <option value="13:00">13:00</option>
+        <option value="14:00">14:00</option>
+        <option value="15:00">15:00</option>
+        <option value="16:00">16:00</option>
+    </select>
+
+
+
+    <label>Symptômes:</label>
+    <input type="text" name="symptomes" required/>
+
+    <button type="submit">Ajouter</button>
+</form>
 </body>
 </html>
-

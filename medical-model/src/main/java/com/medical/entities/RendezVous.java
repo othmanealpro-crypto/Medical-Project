@@ -20,6 +20,7 @@ public class RendezVous {
     @JoinColumn(name = "medecin_id")
     private Medecin medecin;
 
+    @Column(name = "date_rdv")
     private LocalDate dateRdv;
 
     private String symptomes;

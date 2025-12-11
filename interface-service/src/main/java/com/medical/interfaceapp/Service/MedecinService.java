@@ -2,18 +2,54 @@ package com.medical.interfaceapp.Service;
 
 import com.medical.interfaceapp.Model.Medecin;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.ArrayList;
 
 @Service
 public class MedecinService {
 
-    // Pour l'instant, liste simulée. Plus tard tu peux appeler ton microservice medecin-service
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String medecinServiceUrl = "http://localhost:8081/medecins";
+
+    // Récupérer tous les médecins
     public List<Medecin> getAllMedecins() {
-        List<Medecin> medecins = new ArrayList<>();
-        medecins.add(new Medecin(1L, "Dupont", "Jean", "Cardiologue"));
-        medecins.add(new Medecin(2L, "Martin", "Claire", "Dermatologue"));
-        return medecins;
+        try {
+            ResponseEntity<List<Medecin>> response = restTemplate.exchange(
+                    medecinServiceUrl,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<Medecin>>() {}
+            );
+            return response.getBody();
+        } catch (RestClientException e) {
+            System.err.println("Erreur lors de la récupération des médecins : " + e.getMessage());
+            return Collections.emptyList();
+        }
+    }
+
+    // Récupérer un médecin par ID
+    public Medecin findById(Long id) {
+        try {
+            return restTemplate.getForObject(medecinServiceUrl + "/" + id, Medecin.class);
+        } catch (RestClientException e) {
+            System.err.println("Médecin introuvable avec id " + id + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+    // Ajouter un nouveau médecin
+    public Medecin save(Medecin medecin) {
+        try {
+            return restTemplate.postForObject(medecinServiceUrl, medecin, Medecin.class);
+        } catch (RestClientException e) {
+            System.err.println("Impossible de sauvegarder le médecin : " + e.getMessage());
+            return null;
+        }
     }
 }

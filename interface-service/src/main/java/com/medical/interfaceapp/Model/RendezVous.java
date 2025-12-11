@@ -1,21 +1,22 @@
 package com.medical.interfaceapp.Model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class RendezVous {
     private Long id;
     private Patient patient;
     private Medecin medecin;
-    private LocalDateTime dateHeure;
+    private LocalDate dateRdv;  // maintenant LocalDateTime
     private String symptomes;
 
     public RendezVous() {}
 
-    public RendezVous(Long id, Patient patient, Medecin medecin, LocalDateTime dateHeure, String symptomes) {
+    public RendezVous(Long id, Patient patient, Medecin medecin, LocalDate dateRdv, String symptomes) {
         this.id = id;
         this.patient = patient;
         this.medecin = medecin;
-        this.dateHeure = dateHeure;
+        this.dateRdv = dateRdv;
         this.symptomes = symptomes;
     }
 
@@ -28,8 +29,8 @@ public class RendezVous {
     public Medecin getMedecin() { return medecin; }
     public void setMedecin(Medecin medecin) { this.medecin = medecin; }
 
-    public LocalDateTime getDateHeure() { return dateHeure; }
-    public void setDateHeure(LocalDateTime dateHeure) { this.dateHeure = dateHeure; }
+    public LocalDate getDateRdv() { return dateRdv; }
+    public void setDateRdv(LocalDate dateRdv) { this.dateRdv = dateRdv; }
 
     public String getSymptomes() { return symptomes; }
     public void setSymptomes(String symptomes) { this.symptomes = symptomes; }
