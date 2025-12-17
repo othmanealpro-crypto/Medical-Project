@@ -1,5 +1,7 @@
 package com.medical.interfaceapp.Model;
 
+import java.time.LocalDateTime;
+
 public class Medecin {
     private Long id;
     private String nom;

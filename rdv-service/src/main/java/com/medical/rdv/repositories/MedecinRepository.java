@@ -1,11 +1,13 @@
 package com.medical.rdv.repositories;
 
 import com.medical.entities.Medecin;
+import com.medical.entities.RendezVous;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface MedecinRepository extends JpaRepository<Medecin, Long> {
-    // Exemple : chercher par profession
-    // List<Medecin> findByProfession(String profession);
+
 }

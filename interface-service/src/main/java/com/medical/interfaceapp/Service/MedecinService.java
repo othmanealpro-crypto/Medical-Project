@@ -15,7 +15,7 @@ import java.util.List;
 public class MedecinService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String medecinServiceUrl = "http://localhost:8081/medecins";
+    private final String medecinServiceUrl = "http://localhost:8082/medecins";
 
     // Récupérer tous les médecins
     public List<Medecin> getAllMedecins() {

@@ -115,17 +115,16 @@ public class DashboardController {
         Patient patient = patientService.findById(patientId);
         Medecin medecin = medecinService.findById(medecinId);
 
-        if (!rdvService.isCreneauLibre(medecin, dateTimeRdv)) {
-            return "redirect:/dashboard?error=heure_occupee";
-        }
 
         RendezVous rdv = new RendezVous();
         rdv.setPatient(patient);
         rdv.setMedecin(medecin);
-        rdv.setDateRdv(dateRdv);
+        rdv.setDateRdv(dateTimeRdv.toLocalDate());  // Stocke juste la date
         rdv.setSymptomes(symptomes);
 
         rdvService.save(rdv);
-        return "redirect:/dashboard";
+        return "redirect:/dashboard?success=true";
     }
+
+
 }

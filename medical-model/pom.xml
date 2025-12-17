@@ -34,6 +34,11 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.medical</groupId>
+            <artifactId>medical-model</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>
