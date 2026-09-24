@@ -1,6 +1,10 @@
 # Medical Project
 
-Application web de gestion d'un cabinet medical construite avec une architecture microservices Spring Boot. Le projet centralise la gestion des patients, des medecins et des rendez-vous dans un tableau de bord unique.
+Application web de gestion d'un cabinet medical construite avec une architecture microservices Spring Boot. Le projet propose un tableau de bord centralise pour piloter les patients, les medecins et les rendez-vous depuis une interface unique. Il illustre la conception d'un systeme distribue avec separation des responsabilites, communication inter-services, decouverte dynamique et persistance des donnees. L'objectif est de fournir une base evolutive pour digitaliser les operations quotidiennes d'un cabinet medical tout en gardant une architecture maintenable.
+
+## Description du projet
+
+Medical Project simule le fonctionnement d'un cabinet medical moderne : les utilisateurs peuvent consulter et creer des fiches patients, gerer les medecins et planifier les rendez-vous. L'interface communique avec une API Gateway, qui distribue les requetes vers les microservices concernes. Eureka assure la decouverte des services, Spring Cloud Config centralise la configuration et MySQL stocke les donnees metier. Cette organisation permet de faire evoluer chaque service independamment et de preparer l'application a une mise en production progressive.
 
 ## Fonctionnalites
 
